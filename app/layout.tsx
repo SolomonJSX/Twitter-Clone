@@ -2,6 +2,10 @@ import type {Metadata} from "next";
 import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import {Sidebar} from "@/components/layout/Sidebar";
+import FollowBar from "@/components/layout/FollowBar";
+import Modal from "@/components/Modal";
+import RegisterModal from "@/components/modals/RegisterModal";
+import LoginModal from "@/components/modals/LoginModal";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -33,9 +37,12 @@ export default function RootLayout({
                     <div className="col-span-3 lg:col-span-2 border-x-[1px] border-neutral-800">
                         {children}
                     </div>
+                    <FollowBar />
                 </div>
             </div>
         </div>
+        <RegisterModal/>
+        <LoginModal/>
         </body>
         </html>
     );
