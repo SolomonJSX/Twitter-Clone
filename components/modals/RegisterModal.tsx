@@ -4,7 +4,6 @@ import React, {useCallback} from 'react';
 import useLoginModal from "@/hooks/useLoginModal";
 import Input from "@/components/IInputProps";
 import Modal from "@/components/Modal";
-import {register} from "node:module";
 import useRegisterModal from "@/hooks/useRegisterModal";
 
 function RegisterModal() {
