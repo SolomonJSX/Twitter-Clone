@@ -31,5 +31,8 @@ export default async function handler(req: NextRequest) {
         return NextResponse.json(user, {status: 200})
     } catch (error) {
         console.log(error)
+        return NextResponse.json(null, {
+            status: 400
+        })
     }
 }

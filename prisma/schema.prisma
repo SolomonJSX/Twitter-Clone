@@ -27,7 +27,7 @@ model User {
   hashedPassword  String?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
-  followingIds    Int[]
+  followingIds    Follow[]
   hasNotification Boolean?
 
   posts         Post[]
@@ -35,17 +35,31 @@ model User {
   notifications Notification[]
 }
 
+model Follow {
+  id Int @id @default(autoincrement()) @map("_id")
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model Post {
   id        Int      @id @default(autoincrement()) @map("_id")
   body      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  likesId   Int[]
+  likesId   Like[]
 
   userId Int
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   comments Comment[]
+}
+
+model Like {
+  id Int @id @default(autoincrement()) @map("_id")
+
+  postId Int
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
 
 model Comment {
