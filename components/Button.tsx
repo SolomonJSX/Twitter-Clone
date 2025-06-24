@@ -17,6 +17,7 @@ const Button = ({label, secondary, fullWidth, large, onClick, disabled, outline}
             onClick={onClick}
             className={
                 `
+                cursor-pointer
                 disabled:opacity-70
                 disabled:cursor-not-allowed
                 rounded-full

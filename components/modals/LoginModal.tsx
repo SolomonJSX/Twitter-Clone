@@ -62,7 +62,7 @@ function LoginModal() {
     )
 
     return (
-        <Modal disabled={isLoading} body={bodyContent} isOpen={loginModal.isOpen} onClose={loginModal.onClose} title={"Log In"} onSubmit={onSubmit} actionLabel={"Register"} footer={footerContent} />
+        <Modal disabled={isLoading} body={bodyContent} isOpen={loginModal.isOpen} onClose={loginModal.onClose} title={"Log In"} onSubmit={onSubmit} actionLabel={"Login"} footer={footerContent} />
     );
 }
 

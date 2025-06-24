@@ -1,11 +1,13 @@
-import type {Metadata} from "next";
-import {Geist, Geist_Mono} from "next/font/google";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import {Sidebar} from "@/components/layout/Sidebar";
+import { Sidebar } from "@/components/layout/Sidebar";
 import FollowBar from "@/components/layout/FollowBar";
 import Modal from "@/components/Modal";
 import RegisterModal from "@/components/modals/RegisterModal";
 import LoginModal from "@/components/modals/LoginModal";
+import { SessionProvider } from "next-auth/react"
+import Providers from "./providers";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -23,27 +25,29 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
+    children,
+}: Readonly<{
     children: React.ReactNode;
 }>) {
     return (
         <html>
-        <body>
-        <div className="h-screen bg-black">
-            <div className="container h-full mx-auto xl:px-30 max-w-6xl">
-                <div className="grid grid-cols-4 h-full">
-                    <Sidebar/>
-                    <div className="col-span-3 lg:col-span-2 border-x-[1px] border-neutral-800">
-                        {children}
+            <body>
+                <div className="h-screen bg-black">
+                    <div className="container h-full mx-auto xl:px-30 max-w-6xl">
+                        <div className="grid grid-cols-4 h-full">
+                            <Sidebar />
+                            <div className="col-span-3 lg:col-span-2 border-x-[1px] border-neutral-800">
+                                <Providers>
+                                    {children}
+                                </Providers>
+                            </div>
+                            <FollowBar />
+                        </div>
                     </div>
-                    <FollowBar />
                 </div>
-            </div>
-        </div>
-        <RegisterModal/>
-        <LoginModal/>
-        </body>
+                <RegisterModal />
+                <LoginModal />
+            </body>
         </html>
     );
 }
