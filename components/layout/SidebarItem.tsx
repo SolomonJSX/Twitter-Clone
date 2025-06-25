@@ -15,7 +15,7 @@ const SidebarItem: FC<ISidebarItemsProps> = ({
     onClick
     }) => {
     return (
-        <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center" onClick={onClick}>
             <div className="
                 relative
                 rounded-full

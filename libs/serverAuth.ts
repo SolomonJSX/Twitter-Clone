@@ -1,13 +1,18 @@
-import {getServerSession} from "next-auth";
-import {authOptions} from "@/libs/authOptions";
+import { getToken } from "next-auth/jwt";
 import prisma from "@/libs/prismadb";
+import {NextRequest} from "next/server";
 
-const serverAuth = async () => {
-    const session = await getServerSession(authOptions)
+const serverAuth = async (req: NextRequest) => {
+    const secret = process.env.NEXTAUTH_SECRET
 
-    if (!session?.user?.email) throw new Error("Not signed in")
+    const token = await getToken({
+        req,
+        secret
+    })
 
-    const currentUser = await prisma.user.findUnique({where: {email: session.user.email}})
+    if (!token?.email) throw new Error("Not signed in")
+
+    const currentUser = await prisma.user.findUnique({where: {email: token.email}})
 
     if (!currentUser) throw new Error("Not signed in")
 

@@ -1,9 +1,9 @@
 import {NextRequest, NextResponse} from "next/server";
 import serverAuth from "@/libs/serverAuth";
 
-export default async function GET(req: NextRequest) {
+export async function GET(req: NextRequest) {
     try {
-        const { currentUser } = await serverAuth()
+        const { currentUser } = await serverAuth(req)
 
         return NextResponse.json(currentUser, {
             status: 200
