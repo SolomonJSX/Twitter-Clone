@@ -1,5 +1,5 @@
-import {NextAuthOptions} from "next-auth";
-import {PrismaAdapter} from "@auth/prisma-adapter";
+import { NextAuthOptions } from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "@/libs/prismadb";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
@@ -29,8 +29,9 @@ export const authOptions: NextAuthOptions = {
                 if (!isCorrectPassword) throw new Error("Invalid credentials")
 
                 return {
-                    ...user,
-                    id: user.id.toString()
+                    id: user.id.toString(),
+                    email: user.email,
+                    name: user.name,
                 }
             }
         })
@@ -40,15 +41,17 @@ export const authOptions: NextAuthOptions = {
         strategy: "jwt"
     },
     callbacks: {
-        jwt({token, user}) {
+        jwt({ token, user }) {
             if (user) {
-                token.email = user.email
-                token.name = user.name
+                token.id = user.id
+                token.email = user.email as string
+                token.name = user.name as string
             }
             return token
         },
-        session({session, token}) {
-            if (token && session.user) {
+        session({ session, token }) {
+            if (session.user) {
+                session.user.id = token.id
                 session.user.email = token.email
                 session.user.name = token.name
             }

@@ -2,7 +2,7 @@
 
 import React, {useCallback} from 'react';
 import useLoginModal from "@/hooks/useLoginModal";
-import Input from "@/components/IInputProps";
+import Input from "@/components/Input";
 import Modal from "@/components/Modal";
 import useRegisterModal from "@/hooks/useRegisterModal";
 import axios from 'axios';
@@ -30,19 +30,19 @@ function RegisterModal() {
         try {
             setIsLoading(true);
 
-            await axios.post("api/register", {
+            await axios.post("/api/register", {
                 email,
-                password,
                 name,
-                username
+                username,
+                password
             })
 
-            toast.success("Succesfully registered.")
-
-            signIn("credentials", {
+            await signIn("credentials", {
                 email,
                 password
             })
+
+            toast.success("Successfully registered.")
 
             registerModal.onClose()
         } catch (error) {
@@ -51,7 +51,7 @@ function RegisterModal() {
         } finally {
             setIsLoading(false);
         }
-    }, [registerModal]);
+    }, [email, name, password, registerModal, username]);
 
     const bodyContent = (
         <div className="flex flex-col gap-4">

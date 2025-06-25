@@ -8,6 +8,7 @@ import RegisterModal from "@/components/modals/RegisterModal";
 import LoginModal from "@/components/modals/LoginModal";
 import { SessionProvider } from "next-auth/react"
 import Providers from "./providers";
+import {Toaster} from "react-hot-toast";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -47,6 +48,7 @@ export default function RootLayout({
                 </div>
                 <RegisterModal />
                 <LoginModal />
+                <Toaster position={"top-center"} />
             </body>
         </html>
     );

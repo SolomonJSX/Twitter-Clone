@@ -2,10 +2,6 @@ import {NextRequest, NextResponse} from "next/server";
 import serverAuth from "@/libs/serverAuth";
 
 export default async function GET(req: NextRequest) {
-    if (req.method !== "GET") return NextResponse.json(null, {
-        status: 405
-    })
-
     try {
         const { currentUser } = await serverAuth()
 
