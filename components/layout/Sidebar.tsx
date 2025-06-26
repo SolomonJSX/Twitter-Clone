@@ -22,12 +22,14 @@ export const Sidebar = () => {
         {
             label: "Notifications",
             href: "/notifications",
-            icon: BsBellFill
+            icon: BsBellFill,
+            auth: true
         },
         {
             label: "Profile",
             href: "/users/123",
-            icon: FaUser
+            icon: FaUser,
+            auth: true
         }
     ]
 
@@ -37,7 +39,7 @@ export const Sidebar = () => {
                 <div className="space-y-2 lg:w-[230px]">
                     <SidebarLogo />
                     {items.map((item, index) => (
-                        <SidebarItem label={item.label} icon={item.icon} key={index} href={item.href} />
+                        <SidebarItem label={item.label} icon={item.icon} key={index} href={item.href} auth={item.auth} />
                     ))}
                     {currentUser && (
                         <SidebarItem onClick={() => signOut()} icon={BiLogOut} label={"Logout"} />
