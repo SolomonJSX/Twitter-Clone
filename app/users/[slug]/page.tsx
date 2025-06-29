@@ -1,6 +1,7 @@
 "use client";
 
 import Header from '@/components/Header'
+import UserBio from '@/components/UserBio';
 import UserHero from '@/components/UserHero';
 import useUser from '@/hooks/useUser';
 import { useParams } from 'next/navigation';
@@ -26,8 +27,9 @@ export default function Page() {
 
   return (
     <>
-        <Header label={fetchedUser.name!} />
+        <Header label={fetchedUser.name!} showBackArrow />
         <UserHero userId={fetchedUser.id} />
+        <UserBio userId={fetchedUser.id} />
     </>
   )
 }

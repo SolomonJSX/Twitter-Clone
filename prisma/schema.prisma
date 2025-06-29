@@ -27,19 +27,27 @@ model User {
   hashedPassword  String?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
-  followingIds    Follow[]
+  
   hasNotification Boolean?
 
   posts         Post[]
   comments      Comment[]
   notifications Notification[]
+
+  followings Follow[] @relation("UserFollowings") // на кого я подписан
+  followers  Follow[] @relation("UserFollowers")  // кто подписан на меня
 }
 
 model Follow {
   id Int @id @default(autoincrement()) @map("_id")
 
-  userId Int
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  followerId Int
+  followingId Int
+
+  follower    User @relation("UserFollowings", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User @relation("UserFollowers", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId]) // предотвращает повторные подписки
 }
 
 model Post {

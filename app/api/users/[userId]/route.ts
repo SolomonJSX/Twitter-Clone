@@ -12,20 +12,16 @@ export async function GET(req: NextRequest, { params }: { params: { userId: stri
             .findUnique({
                 where: {
                     id: parseInt(userId)
+                },
+                include: {
+                    followers: true,
+                    followings: true,
                 }
             });
 
-        const followersCount = await prisma.follow
-            .count({
-                where: {
-                    userId: parseInt(userId)
-                }
-            });
+            
 
-        return NextResponse.json({
-            followersCount,
-            ...existingUser
-        }, {
+        return NextResponse.json(existingUser, {
             status: 200
         })
     } catch (error) {
