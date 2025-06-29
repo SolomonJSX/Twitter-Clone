@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, { params }: { params: { userId: string }}) {
     try {
-        const userId = params.userId
+        const { userId } = await params
 
         if (!userId || typeof userId !== "string")
             return NextResponse.json("Invalid ID", { status: 400 })
