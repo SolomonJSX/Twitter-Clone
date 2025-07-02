@@ -6,9 +6,9 @@ import useUser from '@/hooks/useUser'
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
-import { mutate } from 'swr'
 import Modal from '../Modal'
 import Input from '../Input'
+import ImageUpload from "@/components/ImageUpload";
 
 const EditModal = () => {
   const { data: currentUser } = useCurrentUser()
@@ -22,11 +22,11 @@ const EditModal = () => {
   const [username, setUsername] = React.useState<string | null>(null)
 
   useEffect(() => {
-    setProfileImage(currentUser?.profileImage!)
-    setCoverImage(currentUser?.coverImage!)
-    setName(currentUser?.name!)
-    setBio(currentUser?.bio!)
-    setUsername(currentUser?.username!)
+    setProfileImage(currentUser?.profileImage as string)
+    setCoverImage(currentUser?.coverImage as string)
+    setName(currentUser?.name as string)
+    setBio(currentUser?.bio as string)
+    setUsername(currentUser?.username as string)
   }, [currentUser])
 
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
@@ -43,12 +43,13 @@ const EditModal = () => {
         username
     })
 
-    mutateFetchedUser()
+    await mutateFetchedUser()
     toast.success("Profile updated successfully")
 
     editModal.onClose()
 
     } catch (error) {
+      console.log(error)
       toast.error("Something went wrong while updating your profile")
     } finally {
       setIsLoading(false)
@@ -57,6 +58,18 @@ const EditModal = () => {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
+      <ImageUpload
+          onChange={(image) => setProfileImage(image)}
+          label={"Upload profile image"}
+          disabled={isLoading}
+          value={profileImage as string}
+          />
+      <ImageUpload
+          onChange={(image) => setCoverImage(image)}
+          label={"Upload cover image"}
+          disabled={isLoading}
+          value={coverImage as string}
+      />
       <Input
         type="text"
         placeholder="Name"

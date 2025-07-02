@@ -27,7 +27,7 @@ const UserBio = ({ userId }: UserBioProps) => {
                 {currentUser?.id === userId ? (
                     <Button secondary label="Edit" onClick={editModal.onOpen} />
                 ) : (
-                    <Button onClick={editModal.onOpen}
+                    <Button onClick={() => {}}
                         label="Follow"
                         secondary
                     />
