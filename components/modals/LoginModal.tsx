@@ -6,6 +6,7 @@ import Input from "@/components/Input";
 import Modal from "@/components/Modal";
 import useRegisterModal from "@/hooks/useRegisterModal";
 import { signIn } from 'next-auth/react';
+import toast from 'react-hot-toast';
 
 function LoginModal() {
     const loginModal = useLoginModal();
@@ -15,7 +16,7 @@ function LoginModal() {
     const [password, setPassword] = React.useState<string>('');
     const [isLoading, setIsLoading] = React.useState(false);
 
-    const onSubmit = useCallback(async () => {
+    const onSubmit = async () => {
         try {
             setIsLoading(true);
 
@@ -24,20 +25,22 @@ function LoginModal() {
                 password
             })
 
+            toast.success("Successfully sign in!")
+
             loginModal.onClose()
         } catch (error) {
             console.log(error)
         } finally {
             setIsLoading(false);
         }
-    }, [loginModal, email, password]);
+    }
 
-    const onToggle = useCallback(() => {
+    const onToggle = () => {
         if (isLoading) return;
 
         loginModal.onClose()
         registerModal.onOpen()
-    }, [isLoading, registerModal, loginModal])
+    }
 
     const bodyContent = (
         <div className="flex flex-col gap-4">
