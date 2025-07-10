@@ -2,7 +2,7 @@
 
 interface IButtonProps {
     label: string;
-    secondary: boolean;
+    secondary?: boolean;
     fullWidth?: boolean;
     large?: boolean;
     onClick?: () => void;

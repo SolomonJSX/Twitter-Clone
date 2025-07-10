@@ -50,8 +50,8 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
     try {
         const { currentUser } = await serverAuth(req)
-        const body = await req.json();
-
+        const  { body } = await req.json();
+ 
         const post = await prisma.post.create({
             data: {
                 body,

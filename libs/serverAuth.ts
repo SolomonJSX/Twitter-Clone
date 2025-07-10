@@ -12,7 +12,10 @@ const serverAuth = async (req: NextRequest) => {
 
     if (!token?.email) throw new Error("Not signed in")
 
-    const currentUser = await prisma.user.findUnique({where: {email: token.email}})
+    const currentUser = await prisma.user.findUnique({where: {email: token.email}, include: {
+        followers: true,
+            followings: true
+        }})
 
     if (!currentUser) throw new Error("Not signed in")
 

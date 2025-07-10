@@ -7,6 +7,7 @@ import useUser from '@/hooks/useUser';
 import { useParams } from 'next/navigation';
 import React from 'react'
 import { ClipLoader } from "react-spinners"
+import PostsFeed from "@/components/posts/PostsFeed";
 
 export default function Page() {
   const params = useParams(); // 👈 это работает только на клиенте
@@ -30,6 +31,7 @@ export default function Page() {
         <Header label={fetchedUser.name!} showBackArrow />
         <UserHero userId={fetchedUser.id} />
         <UserBio userId={fetchedUser.id} />
+        <PostsFeed userId={userId} />
     </>
   )
 }

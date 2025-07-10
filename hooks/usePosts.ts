@@ -1,11 +1,16 @@
 import useSWR from "swr";
 import fetcher from "@/libs/fetcher";
-import { User } from "@/app/generated/prisma";
+import {Comment, Post, User} from "@/app/generated/prisma";
+
+export type PostWithRelations = Post & {
+    user: User;
+    comments: Comment[]
+}
 
 const usePosts = (userId?: number) => {
     const url = userId ? `/api/posts?userId=${userId}` : "/api/posts"
 
-    const {data, error, isLoading, mutate} = useSWR<User[]>("/api/posts", fetcher, {
+    const {data, error, isLoading, mutate} = useSWR<PostWithRelations[]>(url, fetcher, {
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
         shouldRetryOnError: false
